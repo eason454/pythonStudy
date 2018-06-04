@@ -76,3 +76,7 @@ person('Bob', 35, city='Beijing')
 
 
 # 命名关键字参数  函数的调用者可以传入任意不受限制的关键字参数。至于到底传入了哪些，就需要在函数内部通过kw检查
+# 例如想限制只能传入指定的某2个key
+# 和关键字参数**kw不同，命名关键字参数需要一个特殊分隔符*，*后面的参数被视为命名关键字参数
+def namedKeyParamPerson(name, age, *, city, job):
+    print(name, age, city, job)

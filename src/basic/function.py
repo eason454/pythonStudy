@@ -71,6 +71,8 @@ def person(name, age, **kw):
 
 person('Michael', 30)
 person('Bob', 35, city='Beijing')
+
+
 # name: Michael age: 30 other: {}
 # name: Bob age: 35 other: {'city': 'Beijing'}
 
@@ -80,3 +82,57 @@ person('Bob', 35, city='Beijing')
 # 和关键字参数**kw不同，命名关键字参数需要一个特殊分隔符*，*后面的参数被视为命名关键字参数
 def namedKeyParamPerson(name, age, *, city, job):
     print(name, age, city, job)
+
+# 必须传入参数名，否则报错 改例子中，person只有2个位置参数positional arguments，如果不传参数名，python认为你传了4个
+person('Jack', 24, city='Beijing', job='Engineer')
+
+
+# 如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了：以下例子因为有了*args这个可变参数，所以后面就不在需要单独的*来表示
+# 命名关键字参数了,命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值
+def person(name, age, *args, city, job):
+    print(name, age, args, city, job)
+
+
+
+def person(name, age, city, job):
+    # 缺少 *，city和job被视为位置参数
+    pass
+
+
+
+
+#参数组合 参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数
+def f1(a, b, c=0, *args, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+
+def f2(a, b, c=0, *, d, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
+
+
+
+def product(*x):
+    if not x:
+        raise TypeError('x should be not empty')
+    sum1=1
+    for i in x:
+       sum1=sum1*i
+    return sum1
+# 测试
+print('product(5) =', product(5))
+print('product(5, 6) =', product(5, 6))
+print('product(5, 6, 7) =', product(5, 6, 7))
+print('product(5, 6, 7, 9) =', product(5, 6, 7, 9))
+if product(5) != 5:
+    print('测试失败!')
+elif product(5, 6) != 30:
+    print('测试失败!')
+elif product(5, 6, 7) != 210:
+    print('测试失败!')
+elif product(5, 6, 7, 9) != 1890:
+    print('测试失败!')
+else:
+    try:
+        product()
+        print('测试失败!')
+    except TypeError:
+        print('测试成功!')
